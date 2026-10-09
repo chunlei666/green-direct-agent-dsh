@@ -1,0 +1,10 @@
+# 绿电直连智能体 · 引擎运行时依赖（天璇引擎开箱即用，免许可）
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+openpyxl>=3.1
+python-docx>=1.1
+
+# 可选：天枢引擎与双擎互证（另需求解器许可，见 README「求解器许可」）
+# pip install mindoptpy
+# mindoptpy>=2.3
