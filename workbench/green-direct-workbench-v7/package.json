@@ -1,0 +1,29 @@
+{
+  "name": "green-direct-workbench-v7",
+  "version": "1.0.0",
+  "description": "绿电直连智能体 · 项目工作台视图（仅 green-direct 会话可见；v7：阶段恢复——重推旧阶段一并跳回，调整参数重算即时回退阶段③）",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "green-direct",
+    "workbench"
+  ],
+  "license": "MIT"
+}
