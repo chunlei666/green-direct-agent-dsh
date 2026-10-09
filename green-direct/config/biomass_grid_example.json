@@ -1,0 +1,13 @@
+{
+  "policy": {
+    "min_self_use_ratio_of_load": 0.95
+  },
+  "biomass": {
+    "enabled": true,
+    "capex_per_kw": 9000.0,
+    "fixed_om_per_kw_year": 250.0,
+    "fuel_cost_per_kwh": 0.65,
+    "capacity_factor": 0.85,
+    "max_capacity_kw": 200.0
+  }
+}

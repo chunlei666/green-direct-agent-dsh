@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "green-direct"
+version = "0.1.0"
+description = "绿色直供容量配置与运行优化项目"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "openpyxl>=3.1",
+    "python-docx>=1.1",
+]
+
+# 天枢引擎与双擎互证为可选组件：pip install -e ".[primary]"（另需求解器许可）。
+[project.optional-dependencies]
+primary = ["mindoptpy>=2.3"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

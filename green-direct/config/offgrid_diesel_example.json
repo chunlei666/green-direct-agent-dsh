@@ -1,0 +1,14 @@
+{
+  "project": {
+    "type": "offgrid",
+    "loss_of_load_penalty_per_kwh": 10.0,
+    "max_loss_ratio_of_load": 0.01
+  },
+  "diesel": {
+    "enabled": true,
+    "capex_per_kw": 1000.0,
+    "fixed_om_per_kw_year": 50.0,
+    "fuel_cost_per_kwh": 2.2,
+    "max_capacity_kw": 200.0
+  }
+}

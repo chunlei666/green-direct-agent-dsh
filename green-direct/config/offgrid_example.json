@@ -1,0 +1,7 @@
+{
+  "project": {
+    "type": "offgrid",
+    "loss_of_load_penalty_per_kwh": 10.0,
+    "max_loss_ratio_of_load": 0.01
+  }
+}

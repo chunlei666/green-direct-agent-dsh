@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# 绿电直连智能体 · 肌肉层统一入口
+# 用法: gd <template|inspect|solve|validate|report|doctor> [参数...]
+# 大脑（LLM）通过本脚本调用肌肉，不直接触碰求解器代码。
+#
+# 可移植性设计：
+# - 引擎根目录自定位（本脚本所在目录的上一级），随安装位置移动无需修改；
+# - Python 环境默认 ~/.venvs/mindopt-py313（conda 环境或 venv 均可，
+#   只要求 <环境>/bin/python 存在），可用环境变量 GD_ENV 覆盖。
+set -euo pipefail
+
+_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GD_HOME="${GD_HOME:-$(dirname "$_SCRIPT_DIR")}"
+
+GD_ENV="${GD_ENV:-$HOME/.venvs/mindopt-py313}"
+PYTHON_BIN="$GD_ENV/bin/python"
+if [ ! -x "$PYTHON_BIN" ]; then
+  echo "未找到 Python 环境：$PYTHON_BIN" >&2
+  echo "请先创建环境并安装依赖（见 README「安装」章节），或用环境变量 GD_ENV 指定环境路径。" >&2
+  exit 2
+fi
+
+export PYTHONPATH="$GD_HOME/src${PYTHONPATH:+:$PYTHONPATH}"
+exec "$PYTHON_BIN" -m green_direct.agent "$@"

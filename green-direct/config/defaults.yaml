@@ -1,0 +1,39 @@
+timestep_hours: 1.0
+
+costs:
+  wind_capex_per_kw: 7000.0
+  pv_capex_per_kw: 5500.0
+  ess_energy_capex_per_kwh: 1100.0
+  ess_power_capex_per_kw: 500.0
+  wind_om_per_kw_year: 120.0
+  pv_om_per_kw_year: 45.0
+  ess_energy_om_per_kwh_year: 20.0
+  ess_power_om_per_kw_year: 10.0
+
+storage:
+  charge_efficiency: 0.9
+  discharge_efficiency: 0.9
+  soc_min_ratio: 0.1
+  soc_max_ratio: 0.9
+  min_storage_hours: 2.0
+  max_storage_hours: 8.0
+
+policy:
+  min_self_use_ratio_of_green: 0.6
+  min_self_use_ratio_of_load: 0.3
+  max_sell_ratio_of_green: 0.2
+
+finance:
+  discount_rate: 0.08
+  lifecycle_years: 20
+  depreciation_years: 15
+  income_tax_rate: 0.25
+  salvage_rate: 0.05
+
+bounds:
+  wind_capacity_kw_max: 5000.0
+  pv_capacity_kw_max: 5000.0
+  ess_energy_kwh_max: 10000.0
+  ess_power_kw_max: 5000.0
+  grid_import_kw_max: 100000.0
+  grid_export_kw_max: 100000.0
