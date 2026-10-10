@@ -49,8 +49,11 @@ mkdir -p ~/.dsh/.agent-presets/green-direct
 sed "s|__GD_DIRECT_HOME__|$HOME/green-direct-agent/green-direct|g" \
     agent.cordis.yml > ~/.dsh/.agent-presets/green-direct/agent.cordis.yml
 
-# 4)（可选）安装工作台插件
-cp -r workbench/green-direct-workbench-v7 ~/.dsh/profiles/web/node_modules/
+# 4)（可选）安装工作台插件：复制 + 注册，一步完成（可重复执行，幂等）
+bash install-workbench.sh
+#    关键原理：工作台必须在 DSH Web profile 的 cordis.patch.yml 中注册才会被
+#    加载——仅把文件复制进 node_modules 是不会出现「🌱 工作台」页签的。
+#    安装后必须：重启 DSH（插件宿主模块按路径缓存）→ 刷新浏览器页面。
 ```
 
 然后**新建 DSH 会话**，agent preset 选择 `green-direct`：
@@ -86,6 +89,7 @@ cp -r workbench/green-direct-workbench-v7 ~/.dsh/profiles/web/node_modules/
 ```text
 ├── agent.cordis.yml        # 大脑 preset（安装时替换一次路径占位符）
 ├── requirements.txt
+├── install-workbench.sh    # 工作台安装脚本（复制 + 注册，幂等）
 ├── workbench/              # 工作台插件（可选）
 └── green-direct/           # 优化引擎
     ├── agent_tools/gd      # 引擎统一入口（template/inspect/solve/validate/report/doctor）
@@ -96,6 +100,9 @@ cp -r workbench/green-direct-workbench-v7 ~/.dsh/profiles/web/node_modules/
 
 ## FAQ
 
+- **看不到「🌱 工作台」页签**：按顺序检查 ① 是否运行过 `install-workbench.sh`（仅复制文件不注册不会加载）；② `~/.dsh/profiles/web/cordis.patch.yml` 是否含 `green-direct-workbench-v7` 的 insert 行；③ 是否**重启了 DSH**——插件宿主模块按路径缓存，不重启不加载；④ 是否刷新了浏览器页面。
+- **工作台与对话不互通（按钮无反应/工作台不更新）**：互通依赖工作台的宿主半（注册 workbench_open / workbench_update 工具）——它随 cordis.patch.yml 注册与 DSH 重启一起生效；确认完成上述①~④后再试。若工作台读不到项目档案，给 DSH 进程设置 `GD_HOME=<引擎绝对路径>`。
+- **升级工作台代码后不生效**：插件宿主模块按路径缓存——源码变更需**换包名**（如 -v8）并同步修改 cordis.patch.yml 注册名，或直接重启 DSH。
 - **doctor 全绿但求解报"许可未就绪"**：DSH 宿主进程启动早于许可配置时可能读不到 `MINDOPT_LICENSE_PATH`，重启 DSH 或改用文件默认位置 `~/mindopt/mindopt.lic`。
 - **想强制只用天璇**：参数确认阶段选天璇，或 `./agent_tools/gd solve ... --solver alternate`。
 - **安装后 preset 未出现在会话**：确认文件在 `~/.dsh/.agent-presets/green-direct/agent.cordis.yml`，且 YAML 内的路径占位符已全部替换（`grep __GD_DIRECT_HOME__` 应无输出）。
